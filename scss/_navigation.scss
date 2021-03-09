@@ -1,0 +1,21 @@
+.navigation {
+  display: flex;
+  align-items: center;
+  height: 70px;
+  padding: 0 2rem;
+  box-shadow: 0px 2px 10px rgb(216, 216, 216);
+
+  .logo {
+    font-size: 2rem;
+  }
+
+  .nav-menu {
+    display: flex;
+    margin-left: auto;
+    list-style: none;
+
+    .nav-link {
+      margin: 0 1rem;
+    }
+  }
+}
