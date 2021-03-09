@@ -1,7 +1,13 @@
-import '../styles/globals.css'
+import '../scss/index.scss';
+import Navigation from '../components/navigation';
 
 function MyApp({ Component, pageProps }) {
-  return <Component {...pageProps} />
+  return (
+    <>
+      <Navigation />
+      <Component {...pageProps} />
+    </>
+  );
 }
 
-export default MyApp
+export default MyApp;
