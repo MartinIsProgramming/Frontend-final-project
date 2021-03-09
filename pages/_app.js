@@ -10,7 +10,7 @@ function MyApp({ Component, pageProps }) {
     <>
       <Navigation />
       <SWRConfig value={{ fetcher, revalidateOnFocus: false }}>
-        <Component {...pageProps} />\
+        <Component {...pageProps} />
       </SWRConfig>
     </>
   );

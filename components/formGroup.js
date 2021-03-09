@@ -1,7 +1,7 @@
 import React from 'react';
 import Form from 'react-bootstrap/Form';
 
-export const FormGroup = ({ text, option }) => {
+const FormGroup = ({ text, option }) => {
   return (
     <Form.Group>
       <Form.Label>{text}</Form.Label>
@@ -11,3 +11,5 @@ export const FormGroup = ({ text, option }) => {
     </Form.Group>
   );
 };
+
+export default FormGroup;
