@@ -15,14 +15,16 @@ const Navigation = () => {
   return (
     <nav className="navigation">
       <div className="logo">
-        <Link href="/">CARSHOP</Link>
+        <Link href="/">
+          <a className="link">CARSHOP</a>
+        </Link>
       </div>
       <ul className="nav-menu">
         {navLinks.map((link, index) => {
           return (
-            <li key={index} className="nav-link">
+            <li key={index}>
               <Link href={link.path}>
-                <a>{link.label}</a>
+                <a className="link">{link.label}</a>
               </Link>
             </li>
           );

@@ -1,4 +1,5 @@
 import '../scss/index.scss';
+import 'bootstrap/dist/css/bootstrap.css';
 import Navigation from '../components/navigation';
 
 function MyApp({ Component, pageProps }) {
