@@ -14,18 +14,32 @@ import Form from 'react-bootstrap/Form';
 import Image from 'react-bootstrap/Image';
 
 // IMPORTED COMPONENTS
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import FormGroup from '../components/formGroup';
+import axios from 'axios';
 const carsUrl = 'https://ha.edu.uy/api/cars';
+const ratesUrl = 'https://ha.edu.uy/api/rates';
 
 export default function Home() {
   const [inDollars, setInDollars] = useState(true);
+  const [rates, setRates] = useState('');
   const { data, error } = useSWR(carsUrl);
+
+  // GETTING MY CURRENCY
+  const getCurrency = () => {
+    axios.get(ratesUrl).then(res => {
+      setRates(res.data);
+    });
+  };
 
   // HANDLE THE CURRENCY
   const handleCurrency = () => {
     setInDollars(!inDollars);
   };
+
+  useEffect(() => {
+    getCurrency();
+  }, []);
 
   return (
     <>
@@ -36,7 +50,10 @@ export default function Home() {
 
       <main>
         <Container>
-          <h1>Welcome to Carshop</h1>
+          <div className="title-container">
+            <h1>Welcome to Carshop</h1>
+            <span>UYU/USD: ${rates.uyu}</span>
+          </div>
           <div className="divider" />
 
           <div className="grid">
