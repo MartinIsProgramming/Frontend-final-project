@@ -6,10 +6,7 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import FormGroup from '../components/formGroup';
 
-const brandsUrl = 'https://ha.edu.uy/api/brands';
-
 const Filter = ({ inDollars, setInDollars }) => {
-  //const [inDollars, setInDollars] = useState(true);
   const [years, setYears] = useState([]);
   const [year, setYear] = useState(null);
   const [brands, setBrands] = useState([]);
@@ -28,6 +25,7 @@ const Filter = ({ inDollars, setInDollars }) => {
 
   // GETTING MY BRANDS
   const getBrands = () => {
+    const brandsUrl = 'https://ha.edu.uy/api/brands';
     axios.get(brandsUrl).then(res => {
       setBrands(res.data);
     });
@@ -77,12 +75,12 @@ const Filter = ({ inDollars, setInDollars }) => {
         </Form.Control>
       </Form.Group>
 
-      {/*
-       * FILTER AND CURRENCY BUTTONS
-       */}
+      {/* FILTER BUTTON */}
       <Button onClick={handleFilter} className="btn-block mb-3">
         Filter
       </Button>
+
+      {/* CURRENCY BUTTON */}
       <Button
         variant="secondary"
         className="btn-block"

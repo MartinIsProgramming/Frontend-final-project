@@ -1,4 +1,6 @@
 import Head from 'next/head';
+import axios from 'axios';
+const ratesUrl = 'https://ha.edu.uy/api/rates';
 
 // BOOTRSTRAP STYLES
 import { Container } from 'react-bootstrap';
@@ -7,8 +9,6 @@ import { Container } from 'react-bootstrap';
 import { useEffect, useState } from 'react';
 import Filter from '../components/filter';
 import Cars from '../components/cars';
-import axios from 'axios';
-const ratesUrl = 'https://ha.edu.uy/api/rates';
 
 export default function Home() {
   const [inDollars, setInDollars] = useState(true);
