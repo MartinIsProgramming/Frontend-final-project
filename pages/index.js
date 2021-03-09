@@ -1,4 +1,5 @@
 import Head from 'next/head';
+import NumberFormat from 'react-number-format';
 
 // useSWR FUNCTIONALITY
 import useSWR from 'swr';
@@ -7,17 +8,25 @@ import Spinner from '../components/spinner';
 
 // BOOTRSTRAP STYLES
 import { Container } from 'react-bootstrap';
-import Button from 'react-bootstrap/Button';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
-import Image from 'react-bootstrap/Image';
+import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
+import Image from 'react-bootstrap/Image';
 
 // IMPORTED COMPONENTS
+import { useState } from 'react';
 import FormGroup from '../components/formGroup';
 const carsUrl = 'https://ha.edu.uy/api/cars';
 
 export default function Home() {
+  const [inDollars, setInDollars] = useState(true);
   const { data, error } = useSWR(carsUrl);
+
+  // HANDLE THE CURRENCY
+  const handleCurrency = () => {
+    setInDollars(!inDollars);
+  };
+
   return (
     <>
       <Head>
@@ -31,6 +40,9 @@ export default function Home() {
           <div className="divider" />
 
           <div className="grid">
+            {/*
+             * FILTER FUNCTIONALITY
+             */}
             <div className="filter-container">
               <h3>Filter</h3>
               <div className="divider mb-2"></div>
@@ -40,12 +52,19 @@ export default function Home() {
                 <FormGroup text="Model" option="Select..." />
 
                 <Button className="btn-block mb-3">Filter</Button>
-                <Button variant="light" className="btn-block">
+                <Button
+                  variant="light"
+                  className="btn-block"
+                  onClick={handleCurrency}
+                >
                   Change Currency
                 </Button>
               </Form>
             </div>
 
+            {/*
+             * CARS INFORMATION
+             */}
             <div className="cars-container">
               {error ? (
                 <Error />
@@ -53,31 +72,38 @@ export default function Home() {
                 <Spinner />
               ) : (
                 data.map((car, index) => {
-                  const {
-                    image,
-                    brand,
-                    model,
-                    year,
-                    price_usd,
-                    status,
-                    description,
-                  } = car;
                   return (
                     <div key={index}>
                       <div className="image mb-2">
-                        <Image thumbnail src={image} fluid />
+                        <Image thumbnail src={car.image} fluid />
                         {status === 1 ? <div className="badge">new</div> : null}
                       </div>
                       <div className="content mb-4">
                         <div className="title-content">
                           <h4>
-                            {brand} {model}
+                            {car.brand} {car.model}
                           </h4>
                           <div>
-                            {year} / USD{price_usd}/ XXXXX
+                            {car.year} /{' '}
+                            {inDollars ? (
+                              <NumberFormat
+                                value={car.price_usd}
+                                displayType={'text'}
+                                thousandSeparator={true}
+                                prefix={'USD '}
+                              />
+                            ) : (
+                              <NumberFormat
+                                value={car.price_uyu}
+                                displayType={'text'}
+                                thousandSeparator={true}
+                                prefix={'$'}
+                              />
+                            )}{' '}
+                            / XXXXX
                           </div>
                         </div>
-                        <p>{description}</p>
+                        <p>{car.description}</p>
                         <ButtonGroup size="sm" aria-label="Basic example">
                           <Button className="mr-2" variant="success">
                             Buy car
