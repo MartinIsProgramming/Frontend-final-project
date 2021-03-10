@@ -1,29 +1,18 @@
 import Head from 'next/head';
-import axios from 'axios';
 const ratesUrl = 'https://ha.edu.uy/api/rates';
 
 // BOOTRSTRAP STYLES
 import { Container } from 'react-bootstrap';
 
 // IMPORTED COMPONENTS
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import Filter from '../components/filter';
 import Cars from '../components/cars';
+import useSWR from 'swr';
 
-export default function Home() {
+const Home = () => {
+  const { data } = useSWR(ratesUrl);
   const [inDollars, setInDollars] = useState(true);
-  const [rates, setRates] = useState('');
-
-  // GETTING MY CURRENCY
-  const getCurrency = () => {
-    axios.get(ratesUrl).then(res => {
-      setRates(res.data);
-    });
-  };
-
-  useEffect(() => {
-    getCurrency();
-  }, []);
 
   return (
     <>
@@ -36,7 +25,7 @@ export default function Home() {
         <Container>
           <div className="title-container">
             <h1>Welcome to Carshop</h1>
-            <span>UYU/USD: ${rates.uyu}</span>
+            <span>UYU/USD: {!data ? 'Loading..' : `$${data.uyu}`}</span>
           </div>
           <div className="divider" />
 
@@ -55,4 +44,6 @@ export default function Home() {
       </main>
     </>
   );
-}
+};
+
+export default Home;
