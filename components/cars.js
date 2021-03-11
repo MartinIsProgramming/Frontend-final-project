@@ -1,5 +1,6 @@
 import React from 'react';
 import NumberFormat from 'react-number-format';
+import Rating from './rating';
 
 // BOOTRSTRAP STYLES
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
@@ -33,24 +34,32 @@ const Cars = ({ inDollars }) => {
                   <h4>
                     {car.brand} {car.model}
                   </h4>
-                  <div>
-                    {car.year} /{' '}
-                    {inDollars ? (
-                      <NumberFormat
-                        value={car.price_usd}
-                        displayType={'text'}
-                        thousandSeparator={true}
-                        prefix={'USD '}
-                      />
-                    ) : (
-                      <NumberFormat
-                        value={car.price_uyu}
-                        displayType={'text'}
-                        thousandSeparator={true}
-                        prefix={'$'}
-                      />
-                    )}{' '}
-                    / XXXXX
+                  <div className="d-flex">
+                    <span className="mr-1">{car.year} /</span>
+                    <span className="mr-1">
+                      {inDollars ? (
+                        <NumberFormat
+                          value={car.price_usd}
+                          displayType={'text'}
+                          thousandSeparator={true}
+                          prefix={'USD '}
+                        />
+                      ) : (
+                        <NumberFormat
+                          value={(
+                            Math.round(car.price_uyu * 100) / 100
+                          ).toFixed(2)}
+                          displayType={'text'}
+                          thousandSeparator={true}
+                          prefix={'$'}
+                        />
+                      )}{' '}
+                      /
+                    </span>
+
+                    <span>
+                      <Rating value={car.rating} color={'#f8e825'} />
+                    </span>
                   </div>
                 </div>
                 <p>{car.description}</p>
