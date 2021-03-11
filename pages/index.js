@@ -36,9 +36,7 @@ const Home = () => {
               <Filter setInDollars={setInDollars} inDollars={inDollars} />
             </div>
 
-            <div className="cars-container">
-              <Cars inDollars={inDollars} />
-            </div>
+            <Cars inDollars={inDollars} />
           </div>
         </Container>
       </main>

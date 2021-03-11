@@ -43,8 +43,11 @@ const Filter = ({ inDollars, setInDollars }) => {
     setInDollars(!inDollars);
   };
 
+  // HANDLE THE SELECTED VALUES FOR THE FILTER
+
+  // HANDLE THE CURRENCY
   const handleFilter = () => {
-    // const filterUrl = `https://ha.edu.uy/api/cars?year=${year}&brand=${brand}&model=${model}`;
+    const filterUrl = `https://ha.edu.uy/api/cars?year=${year}&brand=${brand}&model=${model}`;
   };
 
   useEffect(() => {

@@ -16,7 +16,7 @@ const carsUrl = 'https://ha.edu.uy/api/cars';
 const Cars = ({ inDollars }) => {
   const { data, error } = useSWR(carsUrl);
   return (
-    <>
+    <div className="cars-container">
       {error ? (
         <Error />
       ) : !data ? (
@@ -25,15 +25,21 @@ const Cars = ({ inDollars }) => {
         data.map((car, index) => {
           return (
             <div key={index}>
+              {/* CARS IMAGE */}
               <div className="image mb-2">
                 <Image thumbnail src={car.image} fluid />
                 {car.status === 1 ? <div className="badge">new</div> : null}
               </div>
+              {/* CARS INFORMATION */}
+
+              {/* CARS NAME AND BRAND */}
               <div className="content mb-4">
                 <div className="title-content">
                   <h4>
                     {car.brand} {car.model}
                   </h4>
+
+                  {/* CARS YEAR, PRICE AND RATING */}
                   <div className="d-flex">
                     <span className="mr-1">{car.year} /</span>
                     <span className="mr-1">
@@ -56,13 +62,14 @@ const Cars = ({ inDollars }) => {
                       )}{' '}
                       /
                     </span>
-
-                    <span>
-                      <Rating value={car.rating} color={'#f8e825'} />
-                    </span>
+                    <Rating value={car.rating} color={'#f8e825'} />
                   </div>
                 </div>
+
+                {/* CARS DESCRIPTION */}
                 <p>{car.description}</p>
+
+                {/* BUTTON WRAPPER */}
                 <ButtonGroup size="sm" aria-label="Basic example">
                   <Button className="mr-2" variant="success">
                     Buy car
@@ -78,7 +85,7 @@ const Cars = ({ inDollars }) => {
           );
         })
       )}
-    </>
+    </div>
   );
 };
 
