@@ -1,0 +1,28 @@
+.cars-container {
+  display: grid;
+  row-gap: 1rem;
+
+  .image {
+    position: relative;
+    width: 400px;
+
+    .badge {
+      position: absolute;
+      left: 1rem;
+      top: 1rem;
+      background-color: orange;
+    }
+  }
+
+  .content {
+    .title-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      .rating-wrapper {
+        display: flex;
+      }
+    }
+  }
+}
