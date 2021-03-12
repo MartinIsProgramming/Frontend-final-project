@@ -9,8 +9,8 @@ import Image from 'react-bootstrap/Image';
 
 // useSWR FUNCTIONALITY
 import useSWR from 'swr';
-import Error from '../components/error';
-import Spinner from '../components/spinner';
+import Error from './error';
+import Spinner from './spinner';
 const carsUrl = 'https://ha.edu.uy/api/cars';
 
 const Cars = ({ inDollars }) => {

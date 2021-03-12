@@ -8,6 +8,10 @@ const Navigation = () => {
       path: '/',
     },
     {
+      label: 'Cars',
+      path: '/cars',
+    },
+    {
       label: 'About',
       path: '/about',
     },
