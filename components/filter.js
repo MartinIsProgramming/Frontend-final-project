@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { useRouter } from 'next/router';
+import { Formik, Form } from 'formik';
+import Customlabel from '../components/customLabel';
+import CustomSelect from './customSelect';
 
 // BOOTRSTRAP STYLES
 import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
-import FormGroup from '../components/formGroup';
 
 const Filter = ({ inDollars, setInDollars }) => {
   const [years, setYears] = useState([]);
@@ -17,7 +19,7 @@ const Filter = ({ inDollars, setInDollars }) => {
   // SET YEARS
   const generateYears = () => {
     let newYears = [];
-    for (let i = 2020; i >= 2014; i--) {
+    for (let i = 2021; i >= 2014; i--) {
       newYears.push(i);
     }
     setYears(newYears);
@@ -33,8 +35,8 @@ const Filter = ({ inDollars, setInDollars }) => {
 
   // GETTING MY MODELS
   const getModels = e => {
-    const brand = e.target.value;
-    const modelsUrl = `https://ha.edu.uy/api/models?brand=${brand}`;
+    //const brand = e.target.value;
+    const modelsUrl = `https://ha.edu.uy/api/models?brand=${e.target.value}`;
     axios.get(modelsUrl).then(res => setModels(res.data));
   };
 
@@ -43,11 +45,12 @@ const Filter = ({ inDollars, setInDollars }) => {
     setInDollars(!inDollars);
   };
 
-  // HANDLE THE SELECTED VALUES FOR THE FILTER
-
   // HANDLE THE CURRENCY
-  const handleFilter = () => {
+  const handleFilter = async () => {
     const filterUrl = `https://ha.edu.uy/api/cars?year=${year}&brand=${brand}&model=${model}`;
+
+    const res = await fetch(filterUrl);
+    const data = await res.json();
   };
 
   useEffect(() => {
@@ -55,43 +58,63 @@ const Filter = ({ inDollars, setInDollars }) => {
     getBrands();
   }, []);
 
+  //SETTING MY NEXT.JS ROUTER
+  const { query } = useRouter();
+
+  const initialValues = {
+    // year: query.year,
+    // brand: query.brand,
+    // model: query.model,
+  };
+
   return (
-    <Form>
-      <FormGroup text="Year" options={years} />
+    <Formik initialValues={initialValues} onSubmit={() => {}}>
+      <Form>
+        {/* YEARS VALUES */}
+        <div className="form-group">
+          <Customlabel htmlFor="year" name="Year" />
+          <CustomSelect
+            onChange={e => setYear(e.target.value)}
+            name="year"
+            options={years}
+          />
+        </div>
 
-      <Form.Group>
-        <Form.Label>Brands</Form.Label>
-        <Form.Control onChange={getModels} as="select">
-          <option>Select..</option>
-          {brands.map((brand, index) => {
-            return <option key={index}>{brand}</option>;
-          })}
-        </Form.Control>
-      </Form.Group>
-
-      <Form.Group>
-        <Form.Label>Models</Form.Label>
-        <Form.Control as="select">
-          {models.map((model, index) => {
-            return <option key={index}>{model}</option>;
-          })}
-        </Form.Control>
-      </Form.Group>
-
-      {/* FILTER BUTTON */}
-      <Button onClick={handleFilter} className="btn-block mb-3">
-        Filter
-      </Button>
-
-      {/* CURRENCY BUTTON */}
-      <Button
-        variant="secondary"
-        className="btn-block"
-        onClick={handleCurrency}
-      >
-        {inDollars ? 'Change To Pesos' : 'Change To Dollars'}
-      </Button>
-    </Form>
+        {/* BRAND VALUES */}
+        <div className="form-group">
+          <Customlabel htmlFor="brand" name="Brands" />
+          <CustomSelect
+            onChange={e => {
+              getModels(e);
+              setBrand(e.target.value);
+            }}
+            name="brand"
+            options={brands}
+          />
+        </div>
+        {/* MODEL VALUES */}
+        <div className="form-group">
+          <Customlabel htmlFor="model" name="Models" />
+          <CustomSelect
+            onChange={e => setModel(e.target.value)}
+            name="model"
+            options={models}
+          />
+        </div>
+        {/* FILTER BUTTON */}
+        <Button type="submit" onClick={handleFilter} className="btn-block mb-3">
+          Filter
+        </Button>
+        {/* CURRENCY BUTTON */}
+        <Button
+          variant="secondary"
+          className="btn-block"
+          onClick={handleCurrency}
+        >
+          {inDollars ? 'Change To Pesos' : 'Change To Dollars'}
+        </Button>
+      </Form>
+    </Formik>
   );
 };
 
