@@ -7,22 +7,19 @@ import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import Button from 'react-bootstrap/Button';
 import Image from 'react-bootstrap/Image';
 
-// useSWR FUNCTIONALITY
-import useSWR from 'swr';
+//COMPONENTS IMPORTED
 import Error from './error';
 import Spinner from './spinner';
-const carsUrl = 'https://ha.edu.uy/api/cars';
 
-const Cars = ({ inDollars }) => {
-  const { data, error } = useSWR(carsUrl);
+const Cars = ({ cars, error, inDollars }) => {
   return (
     <div className="cars-container">
       {error ? (
         <Error />
-      ) : !data ? (
+      ) : !cars ? (
         <Spinner />
       ) : (
-        data.map((car, index) => {
+        cars.map((car, index) => {
           return (
             <div key={index}>
               {/* CARS IMAGE */}

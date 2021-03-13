@@ -7,13 +7,14 @@ const Navigation = () => {
       label: 'Home',
       path: '/',
     },
-    {
-      label: 'Cars',
-      path: '/cars',
-    },
+
     {
       label: 'About',
       path: '/about',
+    },
+    {
+      label: 'Cars',
+      path: '/cars',
     },
   ];
   return (

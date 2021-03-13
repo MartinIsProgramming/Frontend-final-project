@@ -1,5 +1,4 @@
 import Head from 'next/head';
-const ratesUrl = 'https://ha.edu.uy/api/rates';
 
 // BOOTRSTRAP STYLES
 import { Container } from 'react-bootstrap';
@@ -8,10 +7,15 @@ import { Container } from 'react-bootstrap';
 import { useState } from 'react';
 import Filter from '../components/filter';
 import CarsInfo from '../components/carsInfo';
+
+// useSWR FUNCTIONALITY
 import useSWR from 'swr';
+const carsUrl = 'https://ha.edu.uy/api/cars';
+const ratesUrl = 'https://ha.edu.uy/api/rates';
 
 const Cars = () => {
-  const { data } = useSWR(ratesUrl);
+  const { data: cars, error } = useSWR(carsUrl);
+  const { data: rates } = useSWR(ratesUrl);
   const [inDollars, setInDollars] = useState(true);
 
   return (
@@ -25,7 +29,7 @@ const Cars = () => {
         <Container>
           <div className="title-container">
             <h1>Sales</h1>
-            <span>UYU/USD: {!data ? 'Loading..' : `$${data.uyu}`}</span>
+            <span>UYU/USD: {!rates ? 'Loading' : `$${rates.uyu}`}</span>
           </div>
           <div className="divider" />
 
@@ -36,7 +40,7 @@ const Cars = () => {
               <Filter setInDollars={setInDollars} inDollars={inDollars} />
             </div>
 
-            <CarsInfo inDollars={inDollars} />
+            <CarsInfo cars={cars} error={error} inDollars={inDollars} />
           </div>
         </Container>
       </main>
