@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useRouter } from 'next/router';
 import { Formik, Form } from 'formik';
 import Customlabel from '../components/customLabel';
 import CustomSelect from './customSelect';
@@ -48,9 +47,10 @@ const Filter = ({ inDollars, setInDollars }) => {
   // HANDLE THE CURRENCY
   const handleFilter = async () => {
     const filterUrl = `https://ha.edu.uy/api/cars?year=${year}&brand=${brand}&model=${model}`;
-
     const res = await fetch(filterUrl);
-    const data = await res.json();
+    const filteredCars = await res.json();
+
+    cars = filteredCars;
   };
 
   useEffect(() => {
@@ -58,13 +58,10 @@ const Filter = ({ inDollars, setInDollars }) => {
     getBrands();
   }, []);
 
-  //SETTING MY NEXT.JS ROUTER
-  const { query } = useRouter();
-
   const initialValues = {
-    // year: query.year,
-    // brand: query.brand,
-    // model: query.model,
+    // year: years,
+    // brand: brands,
+    // model: models,
   };
 
   return (
@@ -72,7 +69,7 @@ const Filter = ({ inDollars, setInDollars }) => {
       <Form>
         {/* YEARS VALUES */}
         <div className="form-group">
-          <Customlabel htmlFor="year" name="Year" />
+          <Customlabel htmlFor="year" label="Year" />
           <CustomSelect
             onChange={e => setYear(e.target.value)}
             name="year"
@@ -82,7 +79,7 @@ const Filter = ({ inDollars, setInDollars }) => {
 
         {/* BRAND VALUES */}
         <div className="form-group">
-          <Customlabel htmlFor="brand" name="Brands" />
+          <Customlabel htmlFor="brand" label="Brands" />
           <CustomSelect
             onChange={e => {
               getModels(e);
@@ -94,7 +91,7 @@ const Filter = ({ inDollars, setInDollars }) => {
         </div>
         {/* MODEL VALUES */}
         <div className="form-group">
-          <Customlabel htmlFor="model" name="Models" />
+          <Customlabel htmlFor="model" label="Models" />
           <CustomSelect
             onChange={e => setModel(e.target.value)}
             name="model"

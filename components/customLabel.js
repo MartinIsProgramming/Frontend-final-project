@@ -1,10 +1,8 @@
-import React from 'react';
-
 const CustomLabel = props => {
-  const { htmlFor, name } = props;
+  const { htmlFor, label } = props;
   return (
     <label className="form-label" htmlFor={htmlFor}>
-      {name}
+      {label}
     </label>
   );
 };
