@@ -1,6 +1,7 @@
 import '../scss/index.scss';
 import 'bootstrap/dist/css/bootstrap.css';
 import Navigation from '../components/navigation';
+import Footer from '../components/footer';
 import axios from 'axios';
 import { SWRConfig } from 'swr';
 
@@ -14,6 +15,7 @@ function MyApp({ Component, pageProps }) {
       <SWRConfig value={{ fetcher, revalidateOnFocus: false }}>
         <Component {...pageProps} />
       </SWRConfig>
+      <Footer />
     </>
   );
 }

@@ -1,0 +1,41 @@
+.footer {
+  background-color: rgba(0, 0, 0, 0.89);
+  border-top: 3px solid orange;
+  color: white;
+  padding: 20px;
+
+  .footer-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    justify-items: center;
+    align-items: center;
+    height: 100px;
+
+    a {
+      color: white;
+      &:hover {
+        text-decoration: none;
+        color: inherit;
+      }
+    }
+
+    .footer-links {
+      display: flex;
+      flex-direction: column;
+
+      .link {
+        margin: 5px 0;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 992px) {
+  .footer {
+    .footer-grid {
+      grid-template-columns: 1fr;
+      height: auto;
+      row-gap: 1rem;
+    }
+  }
+}
