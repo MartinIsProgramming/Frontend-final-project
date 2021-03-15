@@ -13,8 +13,8 @@ import useSWR from 'swr';
 const carsUrl = 'https://ha.edu.uy/api/cars';
 const ratesUrl = 'https://ha.edu.uy/api/rates';
 
-const Cars = () => {
-  const { data: cars, error } = useSWR(carsUrl);
+const Cars = ({ cars }) => {
+  const [carsInfo, setCarsInfo] = useState(cars);
   const { data: rates } = useSWR(ratesUrl);
   const [inDollars, setInDollars] = useState(true);
 
@@ -25,10 +25,10 @@ const Cars = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main>
+      <main className="mb-4">
         <Container>
           <div className="title-container">
-            <h1>Sales</h1>
+            <h1>Cars</h1>
             <span>UYU/USD: {!rates ? 'Loading' : `$${rates.uyu}`}</span>
           </div>
           <div className="divider" />
@@ -37,10 +37,18 @@ const Cars = () => {
             <div className="filter-container">
               <h3>Filter</h3>
               <div className="divider mb-2"></div>
-              <Filter setInDollars={setInDollars} inDollars={inDollars} />
+              <Filter
+                setCarsInfo={setCarsInfo}
+                inDollars={inDollars}
+                setInDollars={setInDollars}
+              />
             </div>
 
-            <CarsInfo cars={cars} error={error} inDollars={inDollars} />
+            <CarsInfo
+              carsInfo={carsInfo}
+              setCarsInfo={setCarsInfo}
+              inDollars={inDollars}
+            />
           </div>
         </Container>
       </main>
@@ -49,3 +57,15 @@ const Cars = () => {
 };
 
 export default Cars;
+
+export const getServerSideProps = async context => {
+  const res = await fetch(carsUrl);
+
+  const cars = await res.json();
+
+  return {
+    props: {
+      cars: cars,
+    },
+  };
+};

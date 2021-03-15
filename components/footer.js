@@ -4,7 +4,7 @@ const Footer = () => {
   const footerLinks = [
     {
       label: 'About',
-      path: '/',
+      path: '/about',
     },
 
     {

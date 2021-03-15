@@ -10,15 +10,15 @@ import Image from 'react-bootstrap/Image';
 import Error from './error';
 import Spinner from './spinner';
 
-const Cars = ({ cars, error, inDollars }) => {
+const Cars = ({ carsInfo, inDollars }) => {
   return (
     <div className="cars-container">
-      {error ? (
-        <Error />
-      ) : !cars ? (
+      {!carsInfo ? (
         <Spinner />
+      ) : carsInfo.length === 0 ? (
+        <Error />
       ) : (
-        cars.map((car, index) => {
+        carsInfo.map((car, index) => {
           return (
             <div key={index}>
               {/* CARS IMAGE */}

@@ -7,22 +7,11 @@ import CustomSelect from './customSelect';
 // BOOTRSTRAP STYLES
 import Button from 'react-bootstrap/Button';
 
-const Filter = ({ inDollars, setInDollars }) => {
-  const [years, setYears] = useState([]);
-  const [year, setYear] = useState(null);
+const Filter = ({ setCarsInfo, inDollars, setInDollars }) => {
   const [brands, setBrands] = useState([]);
-  const [brand, setBrand] = useState(null);
+  const [brand, setBrand] = useState('');
   const [models, setModels] = useState([]);
-  const [model, setModel] = useState(null);
-
-  // SET YEARS
-  const generateYears = () => {
-    let newYears = [];
-    for (let i = 2021; i >= 2014; i--) {
-      newYears.push(i);
-    }
-    setYears(newYears);
-  };
+  const [model, setModel] = useState('');
 
   // GETTING MY BRANDS
   const getBrands = () => {
@@ -34,9 +23,11 @@ const Filter = ({ inDollars, setInDollars }) => {
 
   // GETTING MY MODELS
   const getModels = e => {
-    //const brand = e.target.value;
     const modelsUrl = `https://ha.edu.uy/api/models?brand=${e.target.value}`;
-    axios.get(modelsUrl).then(res => setModels(res.data));
+    axios.get(modelsUrl).then(res => {
+      setModels(res.data);
+      setModel(res.data[1]);
+    });
   };
 
   // HANDLE THE CURRENCY
@@ -46,37 +37,33 @@ const Filter = ({ inDollars, setInDollars }) => {
 
   // HANDLE THE CURRENCY
   const handleFilter = async () => {
-    const filterUrl = `https://ha.edu.uy/api/cars?year=${year}&brand=${brand}&model=${model}`;
-    const res = await fetch(filterUrl);
-    const filteredCars = await res.json();
+    const filterUrl = `https://ha.edu.uy/api/cars?brand=${brand}&model=${model}`;
 
-    cars = filteredCars;
+    if (brand === '' || model === '') {
+      alert('You need to select a brand and a model');
+    } else {
+      const res = await fetch(filterUrl);
+      const filteredCars = await res.json();
+      setCarsInfo(filteredCars);
+    }
+  };
+
+  const getAllCars = async () => {
+    const carsUrl = 'https://ha.edu.uy/api/cars';
+    const res = await fetch(carsUrl);
+    const data = await res.json();
+    setCarsInfo(data);
   };
 
   useEffect(() => {
-    generateYears();
     getBrands();
   }, []);
 
-  const initialValues = {
-    // year: years,
-    // brand: brands,
-    // model: models,
-  };
+  const initialValues = {};
 
   return (
     <Formik initialValues={initialValues} onSubmit={() => {}}>
       <Form>
-        {/* YEARS VALUES */}
-        <div className="form-group">
-          <Customlabel htmlFor="year" label="Year" />
-          <CustomSelect
-            onChange={e => setYear(e.target.value)}
-            name="year"
-            options={years}
-          />
-        </div>
-
         {/* BRAND VALUES */}
         <div className="form-group">
           <Customlabel htmlFor="brand" label="Brands" />
@@ -109,6 +96,11 @@ const Filter = ({ inDollars, setInDollars }) => {
           onClick={handleCurrency}
         >
           {inDollars ? 'Change To Pesos' : 'Change To Dollars'}
+        </Button>
+
+        {/* FILTER BUTTON */}
+        <Button type="button" onClick={getAllCars} className="btn-block mb-3">
+          All cars
         </Button>
       </Form>
     </Formik>
