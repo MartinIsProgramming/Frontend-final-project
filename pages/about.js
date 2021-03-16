@@ -42,7 +42,7 @@ export default function About() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main>
+      <main className="mb-4">
         <Container>
           {/* STORY SECTION */}
           <div className="title-container">
