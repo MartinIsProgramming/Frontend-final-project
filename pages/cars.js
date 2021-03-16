@@ -28,14 +28,14 @@ const Cars = ({ cars }) => {
       <main className="mb-4">
         <Container>
           <div className="title-container">
-            <h1>Cars</h1>
+            <h2>Sales</h2>
             <span>UYU/USD: {!rates ? 'Loading' : `$${rates.uyu}`}</span>
           </div>
           <div className="divider" />
 
           <div className="grid">
             <div className="filter-container">
-              <h3>Filter</h3>
+              <h4>Filter</h4>
               <div className="divider mb-2"></div>
               <Filter
                 setCarsInfo={setCarsInfo}

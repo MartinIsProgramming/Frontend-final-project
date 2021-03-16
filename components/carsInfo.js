@@ -32,9 +32,9 @@ const Cars = ({ carsInfo, inDollars }) => {
               {/* CARS NAME AND BRAND */}
               <div className="content mb-4">
                 <div className="title-content">
-                  <h4>
+                  <h3>
                     {car.brand} {car.model}
-                  </h4>
+                  </h3>
 
                   {/* CARS YEAR, PRICE AND RATING */}
                   <div className="d-flex">

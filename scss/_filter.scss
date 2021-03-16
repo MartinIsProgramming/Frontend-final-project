@@ -6,6 +6,10 @@
   border-radius: 5px;
   height: 400px;
 
+  h4 {
+    font-size: 1.1rem;
+  }
+
   @media screen and (max-width: 768px) {
     position: relative;
     width: 400px;

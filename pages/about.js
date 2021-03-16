@@ -46,7 +46,7 @@ export default function About() {
         <Container>
           {/* STORY SECTION */}
           <div className="title-container">
-            <h1>Our Story</h1>
+            <h2>Our Story</h2>
           </div>
           <div className="divider" />
 
@@ -82,7 +82,7 @@ export default function About() {
 
           {/* FOUNDERS SECTION */}
           <div className="title-container">
-            <h1>Meet the team</h1>
+            <h2>Meet the team</h2>
           </div>
           <div className="divider" />
 
