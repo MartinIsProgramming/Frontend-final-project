@@ -1,18 +1,19 @@
-import { Field } from 'formik';
-
 const SelectForm = props => {
   const { name, options, ...rest } = props;
   return (
-    <Field className="form-control" as="select" name={name} id={name} {...rest}>
-      <option value="">Select...</option>
-      {options.map((option, index) => {
-        return (
-          <option key={index} value={option}>
-            {option}
-          </option>
-        );
-      })}
-    </Field>
+    <select className="custom-select" name={name} id={name} {...rest}>
+      {options.length === 0 ? (
+        <option value="">No models avilable</option>
+      ) : (
+        options.map((option, index) => {
+          return (
+            <option key={index} value={option}>
+              {option}
+            </option>
+          );
+        })
+      )}
+    </select>
   );
 };
 

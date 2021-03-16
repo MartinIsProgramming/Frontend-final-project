@@ -58,14 +58,14 @@ const Cars = ({ cars }) => {
 
 export default Cars;
 
-export const getServerSideProps = async context => {
+export const getStaticProps = async context => {
   const res = await fetch(carsUrl);
 
   const cars = await res.json();
 
   return {
     props: {
-      cars: cars,
+      cars,
     },
   };
 };
