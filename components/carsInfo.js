@@ -1,5 +1,5 @@
+//FORMAT NUMBERS FOR DOLLARES AND PESOS
 import NumberFormat from 'react-number-format';
-import Rating from './rating';
 
 // BOOTRSTRAP STYLES
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
@@ -9,6 +9,7 @@ import Image from 'react-bootstrap/Image';
 //COMPONENTS IMPORTED
 import Error from './error';
 import Spinner from './spinner';
+import Rating from './rating';
 
 const Cars = ({ carsInfo, inDollars }) => {
   return (

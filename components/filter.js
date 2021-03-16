@@ -1,19 +1,19 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import Customlabel from '../components/customLabel';
-import CustomSelect from './customSelect';
 
 // BOOTRSTRAP STYLES
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
+
+// COMPONENTS IMPORTED
+import Customlabel from '../components/customLabel';
+import CustomSelect from './customSelect';
 
 const Filter = ({ setCarsInfo, inDollars, setInDollars }) => {
   const [brands, setBrands] = useState([]);
   const [brand, setBrand] = useState('');
   const [models, setModels] = useState([]);
   const [model, setModel] = useState('');
-
-  //console.log(brands, model);
 
   // GETTING MY INITIAL BRANDS AND MODELS
   const getBrandsAndModelsOnLoad = () => {
@@ -67,7 +67,13 @@ const Filter = ({ setCarsInfo, inDollars, setInDollars }) => {
   };
 
   useEffect(() => {
-    getBrandsAndModelsOnLoad();
+    let unmounted = false;
+    if (!unmounted) {
+      getBrandsAndModelsOnLoad();
+    }
+    return () => {
+      unmounted = true;
+    };
   }, []);
 
   return (

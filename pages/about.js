@@ -1,12 +1,10 @@
 import Head from 'next/head';
-import { Button, Container } from 'react-bootstrap';
-import Image from 'react-bootstrap/Image';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 //FOUNDERS DATA
 import Data from '../data/founders';
 
 // FONTAWESOME ICONS
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEnvelope } from '@fortawesome/free-regular-svg-icons';
 import {
   faFacebook,
@@ -16,6 +14,8 @@ import {
 
 //BOOTSTRAP
 import { Card } from 'react-bootstrap';
+import Image from 'react-bootstrap/Image';
+import { Button, Container } from 'react-bootstrap';
 
 export default function About() {
   const foundersInfo = Data;
