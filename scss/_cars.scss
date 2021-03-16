@@ -32,13 +32,18 @@
       h3 {
         font-size: 1.3rem;
       }
+      .rating-wrapper {
+        display: flex;
+        span {
+          width: 15px;
+          margin: 0 2px;
+        }
+      }
+
       @media screen and (max-width: 992px) {
         flex-direction: column;
         align-items: flex-start;
         margin-bottom: 0.5rem;
-      }
-      .rating-wrapper {
-        display: flex;
       }
     }
   }

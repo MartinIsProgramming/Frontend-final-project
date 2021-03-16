@@ -4,6 +4,7 @@ import { faStar, faStarHalf } from '@fortawesome/free-solid-svg-icons';
 import { faStar as faStarRegular } from '@fortawesome/free-regular-svg-icons';
 
 const Rating = ({ value, color }) => {
+  console.log(value);
   return (
     <div className="rating-wrapper">
       <span style={{ color }}>
