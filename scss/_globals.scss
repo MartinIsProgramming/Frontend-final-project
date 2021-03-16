@@ -29,6 +29,12 @@ a {
   padding-top: 40px;
 }
 
+.title-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 .divider {
   height: 1px;
   background: #dcdcdc;
